@@ -13,6 +13,12 @@ public class Order implements Serializable {
         this.content = content;
     }
 
+    public Order(String orderId, String content) {
+        this.orderId = orderId;
+        this.content = content;
+    }
+
+
     public String getId() {
         return id;
     }
