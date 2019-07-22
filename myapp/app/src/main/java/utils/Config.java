@@ -1,7 +1,7 @@
 package utils;
 
 public class Config {
-
+    //192.168.43.187  119.3.184.10
     public static final String URL = "http://119.3.184.10:8000/Server/OrderServlet";
 
     public static final String ACTION = "action";
@@ -20,6 +20,9 @@ public class Config {
     public  static  final int MESSAGE_DELETE_FAIL=2;
     public  static  final int MESSAGE_UPDATE_OK=3;
     public  static  final int MESSAGE_UPDATE_FAIL=4;
+    public  static  final int MESSAGE_INSERT_OK=5;
+    public  static  final int MESSAGE_INSERT_FAIL=6;
+
 
 
 

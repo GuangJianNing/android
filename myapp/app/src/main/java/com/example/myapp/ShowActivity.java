@@ -27,7 +27,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +42,7 @@ import utils.Tips;
 
 
 public class ShowActivity extends AppCompatActivity {
+    private String search_id="0";
     private SwipeRefreshLayout refreshLayout;
     private ProgressBar progressBar;
     private ListView listView_show;
@@ -82,7 +82,7 @@ public class ShowActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show);
         bindView();
-        init();
+//        init();
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -111,6 +111,7 @@ public class ShowActivity extends AppCompatActivity {
                 RequestBody body = new FormBody
                         .Builder()
                         .add(Config.ACTION, Config.ACTION_FIND_ALL)
+                        .add("id",hasSearchId())
                         .build();
                 Request request = new Request.Builder().post(body).url(Config.URL).build();
 
@@ -252,9 +253,31 @@ public class ShowActivity extends AppCompatActivity {
 
     }
 
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         handler.removeMessages(0);
+    }
+
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        init();
+    }
+
+    /**
+     * 判断是否有输入Id，并且将其返回
+     * @return输入的Id
+     */
+    private String hasSearchId(){
+        Bundle bundle=getIntent().getExtras();
+        if (bundle!=null&&!(bundle.getString("id").equals(""))){
+            search_id=bundle.getString("id");
+        }
+        return search_id;
     }
 }
