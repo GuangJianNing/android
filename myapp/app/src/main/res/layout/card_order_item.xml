@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="100dp">
+    android:layout_height="120dp">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,13 +19,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:id="@+id/img_card_order_item"
+                android:id="@+id/img_card_order"
+                android:scaleType="fitXY"
                 />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
-                android:id="@+id/tx_card_order_item"
+                android:gravity="center"
+                android:id="@+id/tx_card_order_content"
                 />
         </LinearLayout>
     </androidx.cardview.widget.CardView>

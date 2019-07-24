@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import adapter.CardOrderAdapter;
 import adapter.OrderAdapter;
 import entity.Order;
 import okhttp3.FormBody;
@@ -48,6 +49,7 @@ public class ShowActivity extends AppCompatActivity {
     private ListView listView_show;
     private List<Order> orderList;
     private OrderAdapter adapter ;
+    private CardOrderAdapter cardOrderAdapter;
     private int position;//被长按的listView 的位置
     private Handler handler = new Handler() {
 
@@ -56,8 +58,8 @@ public class ShowActivity extends AppCompatActivity {
 
             switch (msg.what) {
                 case Config.MESSAGE_INIT:
-                    adapter = new OrderAdapter(ShowActivity.this, R.layout.order_item, orderList);
-                    listView_show.setAdapter(adapter);
+                    cardOrderAdapter = new CardOrderAdapter(ShowActivity.this, R.layout.card_order_item, orderList);
+                    listView_show.setAdapter(cardOrderAdapter);
                     //让加载圆圈消失
                     progressBar.setVisibility(View.GONE);
                     refreshLayout.setRefreshing(false);
@@ -66,7 +68,7 @@ public class ShowActivity extends AppCompatActivity {
                 case Config.MESSAGE_DELETE_OK:
                     progressBar.setVisibility(View.GONE);
                     orderList.remove(position);
-                    adapter.notifyDataSetChanged();
+                    cardOrderAdapter.notifyDataSetChanged();
                     Tips.toast(ShowActivity.this,"删除成功");
                     break;
                 case Config.MESSAGE_DELETE_FAIL:
@@ -87,6 +89,30 @@ public class ShowActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 init();
+            }
+        });
+        listView_show.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                StringBuilder builder=new StringBuilder();
+                Order order=orderList.get(i);
+                AlertDialog.Builder dialog=new AlertDialog.Builder(ShowActivity.this);
+                dialog.setTitle(order.getContent());
+                dialog.setMessage(builder
+                        .append("ID号:")
+                        .append(order.getId())
+                        .append("\n\n")
+                        .append("订单号:")
+                        .append(order.getOrderId())
+
+                );
+                dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                dialog.show();
             }
         });
 

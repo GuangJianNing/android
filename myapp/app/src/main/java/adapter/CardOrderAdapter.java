@@ -1,6 +1,7 @@
 package adapter;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,11 +29,11 @@ public class CardOrderAdapter extends ArrayAdapter {
         Order order=orderList.get(position);
         View view =null;
         ViewHolder holder=null;
-        if (convertView!=null){
+        if (convertView==null){
             view= LayoutInflater.from(getContext()).inflate(subItemId,parent,false);
             holder=new ViewHolder();
-            holder.textView_content=view.findViewById(R.id.tx_card_order_item);
-            holder.imageView=view.findViewById(R.id.img_card_order_item);
+            holder.textView_content=view.findViewById(R.id.tx_card_order_content);
+            holder.imageView=view.findViewById(R.id.img_card_order);
             view.setTag(holder);
         }else {
             view=convertView;
@@ -40,7 +41,9 @@ public class CardOrderAdapter extends ArrayAdapter {
         }
 
         holder.textView_content.setText(order.getContent());
-
+        holder.imageView.setImageBitmap(
+                BitmapFactory.decodeResource(getContext().getResources()
+                        ,R.mipmap.sky));
         return view;
     }
 
